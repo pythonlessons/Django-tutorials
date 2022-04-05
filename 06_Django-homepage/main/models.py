@@ -23,8 +23,6 @@ class ArticleSeries(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200, null=False, blank=False, unique=True)
     subtitle = models.CharField(max_length=200, default='', blank=True)
-    # article_slug = models.SlugField("Article slug", default=slugify(title), null=False, blank=False, unique=True)
-    # article_slug = models.SlugField("Article slug", default="", null=True, blank=True, unique=False)
     article_slug = models.SlugField("Article slug", max_length=100, null=False, blank=False, unique=True)
     content = HTMLField(blank=True, default="")
     notes = HTMLField(blank=True, default="")

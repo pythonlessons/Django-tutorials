@@ -17,7 +17,7 @@ class ArticleSeries(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200, default='', blank=True)
-    slug = models.SlugField("Series slug", null=False, blank=False, unique=True)
+    article_slug = models.SlugField("Article slug", null=False, blank=False, unique=True)
     content = models.TextField()
     published = models.DateTimeField('Date published', default=timezone.now)
     modified = models.DateTimeField('Date modified', default=timezone.now)
@@ -25,6 +25,10 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def slug(self):
+        return self.article_slug
 
     class Meta:
         ordering = ['-published']
