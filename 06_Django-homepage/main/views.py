@@ -1,6 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import ArticleSeries, Article
 
 # Create your views here.
 def homepage(request):
-    return HttpResponse("This is our homepage! It works!")
+    matching_series = ArticleSeries.objects.all()
+
+    return render(request=request,
+                  template_name='main/home.html',
+                  context={"objects": matching_series}
+                  )
+
+def series(request, series):
+    matching_articles = Article.objects.filter(series__slug=series).all()
+
+    return render(request=request,
+                  template_name='main/home.html',
+                  context={"objects": matching_articles}
+                  )
+
+def article(request, series, article):
+    matching_article = Article.objects.filter(series__slug=series, article_slug=article).first()
+
+    return render(request=request,
+                  template_name='main/article.html',
+                  context={"object": matching_article}
+                  )
